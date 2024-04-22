@@ -14,6 +14,8 @@ public class RegisterForm extends JFrame {
     Color green = Color.green;
     Color black = Color.black;
 
+
+    // Method to display the registration form
     public void showRegisterForm() {
         Font headingFont = new Font("Arial", Font.BOLD, 36);
 
@@ -24,6 +26,7 @@ public class RegisterForm extends JFrame {
 
         JLabel formLabel = new JLabel("Signup Page", SwingConstants.CENTER);
         formLabel.setFont(headingFont);
+
         JLabel usernameLabel = new JLabel("Username");
         JLabel passwordLabel = new JLabel("Password");
         JLabel firstNameLabel = new JLabel("First Name");
@@ -34,6 +37,7 @@ public class RegisterForm extends JFrame {
         firstNameField = new JTextField();
         lastNameField = new JTextField();
 
+        // Action listener for the login button to open the login page
         JButton loginButton = new JButton("Login Instead");
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -46,6 +50,8 @@ public class RegisterForm extends JFrame {
         loginButton.setForeground(Color.blue);
 
         JButton registerButton = new JButton("Signup");
+
+        // Action listener for the signup button to start the signup process
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,33 +91,24 @@ public class RegisterForm extends JFrame {
 
     }
 
+
+    // Method to check password complexity and make sure it has all the reiqurements
     Boolean checkPasswordComplexity(String passwordValue) {
 
-        if (passwordValue.length() >= 8 &&
+        return passwordValue.length() >= 8 &&
                 passwordValue.matches(".*[A-Z].*") &&
                 passwordValue.matches(".*\\d.*") &&
-                passwordValue.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
-            return true;
-        } else {
-            return false;
-        }
+                passwordValue.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
     }
 
+    // Method to check username format has 5 chars or fewer and an underscore
      Boolean checkUserName(String userNameValue) {
-        if (userNameValue.contains("_") && userNameValue.length() <= 5) {
-            return true;
-        } else {
-            return false;
-        }
+         return userNameValue.contains("_") && userNameValue.length() <= 5;
     }
-
+    // Check if first and last name fields are not empty to ensure they are not blank after registration
      Boolean fullIsNameValid() {
 
-        if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+         return !firstNameField.getText().isEmpty() && !lastNameField.getText().isEmpty();
 
     }
 
@@ -122,7 +119,7 @@ public class RegisterForm extends JFrame {
         String lastName = lastNameField.getText();
         messageLabel.setText("FIll in your information below");
         messageLabel.setForeground(black);
-        // Check if the username is incorrectly formatted
+        // Check if the username is correctly formatted
         if (!checkUserName(username)) {
             return "Username is not correctly formatted, please ensure that your username contains an underscore and is  no more than 5 characters in length";
         } else {
@@ -138,7 +135,7 @@ public class RegisterForm extends JFrame {
             messageLabel.setForeground(green);
         }
 
-        // Check if the password meets the complexity requirements
+        // Check if the full is not blank
         if (!fullIsNameValid()) {
             return "First and Last name cannot be empty.";
         } else {
@@ -154,7 +151,7 @@ public class RegisterForm extends JFrame {
         nextScreen.showHome();
 
         // Close the current window
-        dispose(); // This will close the current JFrame
+        dispose();
         return "User registered successfully.";
     }
 

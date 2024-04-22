@@ -9,7 +9,7 @@ public class LoginTest {
         String username = "kyle!!!!!!!";
         String password = "password";
         User user = login.readUser(username);
-        Boolean loggedIn = login.loginUser(username, password, user);
+        Boolean loggedIn = login.loginUser(password, user);
         assertFalse("Login Failed", loggedIn);
     }
 
@@ -19,7 +19,7 @@ public class LoginTest {
         String username = "kyl_1";
         String password = "password";
         User user = login.readUser(username);
-        Boolean loggedIn = login.loginUser(username, password, user);
+        Boolean loggedIn = login.loginUser(password, user);
         assertFalse("Login Failed", loggedIn);
     }
 
@@ -29,7 +29,7 @@ public class LoginTest {
         String username = "kyl_1";
         String password = "Ch&&sec@ke99!";
         User user = login.readUser(username);
-        Boolean loggedIn = login.loginUser(username, password, user);
+        Boolean loggedIn = login.loginUser(password, user);
         assertTrue("Login Successful", loggedIn);
     }
 

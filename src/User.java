@@ -1,10 +1,10 @@
 import java.io.*;
 
 public class User implements Serializable{
-    private  String firstName;
-    private  String lastName;
-    private  String username;
-    private  String password;
+    private final String firstName;
+    private final String lastName;
+    private final String username;
+    private final String password;
 
 
     public User(String firstName, String lastName, String username, String password) {
@@ -28,7 +28,7 @@ public class User implements Serializable{
         return password;
     }
 
-
+    //this function saves the users information in a file that we can access later
     public void writeToFile(String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(this);

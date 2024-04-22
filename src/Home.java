@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class Home extends JFrame {
 
     private final User user;
+
+//this method runs show the home screen if the user is successful in logging in
 
     public void showHome() {
         Font headingFont = new Font("Arial", Font.BOLD, 36);
@@ -22,6 +23,7 @@ public class Home extends JFrame {
         loginPanel.add(name);
         add(loginPanel);
 
+        //this block is to make sure the app is the correct size and open in the center of the screen
         setTitle("Kanban App");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -31,9 +33,10 @@ public class Home extends JFrame {
 
 
     }
+
+    //here we are passing the user to this screen if the are able to reach this screen it means they are logged in
     public Home(User user) {
         this.user = user;
-        // Add any initialization code here
     }
 
 

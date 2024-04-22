@@ -10,16 +10,17 @@ public class Login extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    private JLabel messageLabel = new JLabel();
+    private final JLabel messageLabel = new JLabel();
    private User user;
 
+
+
+    // Method to display the login form
     public void showLoginForm() {
         Font headingFont = new Font("Arial", Font.BOLD, 36);
 
         messageLabel.setText("FIll in your information below");
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-
 
         JLabel formLabel = new JLabel("Login Page", SwingConstants.CENTER);
         formLabel.setFont(headingFont);
@@ -30,6 +31,8 @@ public class Login extends JFrame {
         usernameField = new JTextField();
         passwordField = new JPasswordField();
 
+
+        // listener for the login button that executes the attempt to login
         JButton loginButton = new JButton("Login ");
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -44,6 +47,7 @@ public class Login extends JFrame {
 
         loginButton.setForeground(Color.blue);
 
+        // listener for the Register button that opens the signup button
         JButton registerButton = new JButton("Signup Instead");
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -75,47 +79,44 @@ public class Login extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
     }
+    // Method to validate user login
+    Boolean  loginUser(String password, User user){
 
-    Boolean  loginUser(String username, String password, User user){
 
-
-
+        //if the user is null it means the user does not exist.
       if ( user == null){
           return false;
       }
 
-      if (!password.equals(user.getPassword())){
-
-          return  false;
-      }
-
-      return true;
+        return password.equals(user.getPassword());
 
     }
 
+//this function checks whether the login attempt was successful and return the answer as a scree nwe can display
      String returnLoginStatus() {
-         String username = usernameField.getText().trim(); // Trim whitespace
+         String username = usernameField.getText().trim(); // Trim whitespace for simpler comparison
          String enteredPassword = new String(passwordField.getPassword()).trim();
          user = readUser(username);
 
-        if (loginUser(username,enteredPassword,user)) {
+        if (loginUser(enteredPassword,user)) {
             Home nextScreen = new Home(user);
             nextScreen.showHome();
             // Close the current window
             dispose();
+
             return "Welcome"+ user.getLastName()+ " , " +user.getFirstName()+" it is great to see you again.";
         } else {
-
+            //this means teh user was unable to login.
             return "Username or password incorrect, please try again";
         }
     }
 
-    // Method to read User object from a file
+    // Function to read User object from a file
       User readUser(String username) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(username))) {
             return (User) inputStream.readObject();
         } catch (IOException | ClassNotFoundException error) {
-            // Print error message if file cannot be read because it means the use does not exist
+            // Show error message if file cannot be read because it means the use does not exist
             System.out.println("user does not exist" + error.getMessage());
             return null;
         }
